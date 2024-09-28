@@ -5,6 +5,14 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+
+    <color name="teal">#6AF8DF</color>
+    <color name="orangeRed">#EA6060</color>
+    <color name="pearlGrey">#F9F9F9</color>
+    <color name="DarkpearlGrey">#F7F7F7</color>
+    <color name="lightGraphite">#292D36</color>
+    <color name="darkGraphite">#22252D</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
 </resources>
