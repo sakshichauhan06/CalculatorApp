@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity() {
     private var canDecimal = true
     private var isNum = false
     private var lastIsOp = false
+    private var lastOp = ""
+    private var nextOp = ""
+    private var firstOp = false
     private var currentText = ""
     private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,12 +65,58 @@ class MainActivity : AppCompatActivity() {
             if(buttonText == "AC") {
                 binding.resultTV.text = ""
                 canDecimal = true
-            } else if (buttonText == "CE") {
+            } else if (buttonText == "CE" || buttonText == "⌫") {
                 currentText = binding.resultTV.text.toString()
                 if(!currentText.isEmpty()) {
                     binding.resultTV.text = currentText.subSequence(0, currentText.length - 1)
                 }
              }
+        }
+    }
+
+    fun equalCalculations(view: View) {
+        if(view is Button) {
+            var buttonText = view.text.toString()
+            var num1: Double? = 0.0
+            var num2: Double? = 0.0
+            if(buttonText == "=") {
+                val expressions = binding.resultTV.text.toString()
+                val parts = expressions.split("+", "-", "*", "/")
+
+                if(parts.size == 2) {
+                    num1 = parts[0].toDoubleOrNull()
+                    num2 = parts[1].toDoubleOrNull()
+                }
+
+                val operator = expressions.first{ it in "=-*/" }.toString()
+
+                val result = when(operator) {
+                    "+" -> num1?.plus(num2 ?: 0.0)
+                    "-" -> num1?.minus(num2 ?: 0.0)
+                    "*" -> num1?.times(num2 ?: 0.0)
+                    "/" -> {
+                        if(num2 == 0.0) {
+                            binding.resultTV.text = "Error"
+                            return
+                        }
+                        num1?.div(num2 ?: 1.0)
+                    }
+                    else -> null
+                }
+
+                result?.let {
+                    val formattedResult = if(it % 1 == 0.0) {
+                        it.toInt().toString()
+                    } else {
+                        it.toString()
+                    }
+                    binding.resultTV.text = formattedResult
+                }
+
+                canDecimal = true
+                isNum = true
+                lastIsOp = false
+            }
         }
     }
 }

@@ -128,7 +128,8 @@
         style="@style/btnRow">
         <Button
             style="@style/btnClears"
-            android:text="==" />
+            android:textColor="@color/black"
+            android:text="⌫" />
         <Button
             style="@style/btnNumber"
             android:text="0" />
@@ -137,6 +138,7 @@
             android:text="." />
         <Button
             style="@style/btnClears"
+            android:onClick="equalCalculations"
             android:text="="
             android:textColor="@color/orangeRed"/>
     </LinearLayout>
